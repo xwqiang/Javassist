@@ -7,6 +7,8 @@ import java.security.ProtectionDomain;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kuyun.shadowNet.matics.MatricsUtil;
+
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -42,8 +44,12 @@ public class MonitorTransformer implements ClassFileTransformer {
                 if (method.startsWith(className)){
                 		//获取方法名
                         String methodName = method.substring(method.lastIndexOf('.')+1, method.length());
-                        String outputStr ="\nSystem.out.println(\"this method "+methodName+" cost:\" +(endTime - startTime) +\"ms.\");";
+                        //metric --> registry
+                        
+//                        String outputStr ="\nSystem.out.println(\"this method "+methodName+" cost:\" +(endTime - startTime) +\"ms.\");";
+                        String outputStr ="\ncom.kuyun.shadowNet.matics.MatricsUtil.regist(\"time\", (endTime - startTime)+\"\" );";
                         //得到这方法实例
+                        
                         CtMethod ctmethod = ctclass.getDeclaredMethod(methodName);
                         //新定义一个方法叫做比如sayHello$impl 
                         String newMethodName = methodName +"$impl";
@@ -64,6 +70,7 @@ public class MonitorTransformer implements ClassFileTransformer {
                  
                         bodyStr.append("}"); 
                         //替换新方法 
+                        System.out.println(bodyStr.toString());
                         newMethod.setBody(bodyStr.toString());
                         //增加新方法 
                         ctclass.addMethod(newMethod); 
@@ -71,13 +78,10 @@ public class MonitorTransformer implements ClassFileTransformer {
             }    
                 return ctclass.toBytecode();
             } catch (IOException e) {
-                //TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (CannotCompileException e) {
-                //TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (NotFoundException e) {
-                //TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }

@@ -7,7 +7,9 @@ package monitor.agent;
 @Aop(value = "aaa")
 public class MyTest {
     public static void main(String[] args) {
+    	
         sayHello();
+        
         sayHello2("hello world");
     }
     
