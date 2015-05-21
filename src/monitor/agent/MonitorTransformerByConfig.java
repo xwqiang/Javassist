@@ -25,10 +25,8 @@ public class MonitorTransformerByConfig implements ClassFileTransformer {
 		className = className.replace("/", ".");
 		CtClass ctclass = null;
 		try {
-			// 用于取得字节码类，必须在当前的classpath中，使用全称 ,这部分是关于javassist的知识
 			ctclass = ClassPool.getDefault().get(className);
 			for (String method : methodlist.split(split)) {
-				// 获取方法名
 				String methodName = method.substring(
 						method.lastIndexOf('.') + 1, method.length());
 				String outputStr = "\ncom.kuyun.shadowNet.matics.MatricsUtil.regist(\"time\", (endTime - startTime) );";
