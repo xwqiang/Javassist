@@ -4,7 +4,6 @@ package monitor.agent;
  * 8960
  * @author yongkang.qiyk
  */
-@Aop(value = "aaa")
 public class MyTest {
 	private static int sum ;
 	private static int sum1 ;
@@ -16,7 +15,7 @@ public class MyTest {
 	        System.out.println(sum + "   " + sum1);
     	}
     }
-    
+    @Aop(value = { "aa" })
     public static void sayHello() {
         try {
             Thread.sleep(2000);
