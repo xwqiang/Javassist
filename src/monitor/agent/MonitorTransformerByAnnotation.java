@@ -33,8 +33,6 @@ public class MonitorTransformerByAnnotation implements ClassFileTransformer {
 							+ methodName;
 					final String key_times = "times:" + ctclass.getName() + "."
 							+ methodName;
-					// String outputStr =
-					// "\ncom.kuyun.shadowNet.matics.MatricsUtil.regist(\""+key_time+"\", (endTime - startTime) );";
 					String outputStr = "\ncom.kuyun.shadowNet.matics.core.Gauges g = (com.kuyun.shadowNet.matics.core.Gauges)com.kuyun.shadowNet.matics.MatricsUtil.get(\""
 							+ key_time
 							+ "\");\n"
@@ -85,14 +83,12 @@ public class MonitorTransformerByAnnotation implements ClassFileTransformer {
 
 					bodyStr.append("}");
 					// 替换新方法
-					System.out.println(bodyStr.toString());
 					newMethod.setBody(bodyStr.toString());
 					// 增加新方法
 					ctclass.addMethod(newMethod);
-
+					ctclass.writeFile("d:/usr/");
 				}
 			}
-			ctclass.writeFile("d:/usr/");
 			return ctclass.toBytecode();
 		} catch (Exception e) {
 			e.printStackTrace();

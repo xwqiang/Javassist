@@ -13,16 +13,6 @@ import monitor.annotation.Aop;
  */
 public class MyTest {
     public static void main(String[] args) throws Exception {
-    	String day = "2014-02-23 23:22:12";
-    	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    	Date date = dateFormat.parse(day);
-    	Calendar cal = Calendar.getInstance();
-    	cal.setTime(date);
-    	cal.add(Calendar.MONTH,-1);
-    	cal.getTime();
-    	String dddd = day.substring(0, 7);
-    	System.err.println(cal.getTime());
-    	System.exit(0);
     	while(true){
 	        sayHello();
 	        
